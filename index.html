@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#d9c75f",
+                    "surface-variant": "#e1e3e4",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#316288",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-primary": "#9ccbf6",
+                    "primary-fixed-dim": "#9ccbf6",
+                    "tertiary-container": "#bdac47",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#7eadd7",
+                    "surface-container-low": "#f3f4f5",
+                    "outline": "#72787f",
+                    "secondary-fixed-dim": "#bfc8c7",
+                    "on-primary-fixed": "#001d31",
+                    "tertiary": "#6b5f00",
+                    "outline-variant": "#c1c7cf",
+                    "on-secondary-container": "#5d6665",
+                    "on-tertiary-fixed-variant": "#514700",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-highest": "#e1e3e4",
+                    "inverse-surface": "#2e3132",
+                    "primary": "#002a44",
+                    "on-surface-variant": "#41474e",
+                    "background": "#f8f9fa",
+                    "on-tertiary-container": "#493f00",
+                    "on-background": "#191c1d",
+                    "surface-container-high": "#e7e8e9",
+                    "on-secondary-fixed": "#151d1d",
+                    "surface": "#f8f9fa",
+                    "on-error-container": "#93000a",
+                    "secondary": "#57605f",
+                    "on-tertiary-fixed": "#201c00",
+                    "secondary-fixed": "#dbe4e3",
+                    "on-primary-fixed-variant": "#124a6f",
+                    "on-secondary-fixed-variant": "#404848",
+                    "primary-fixed": "#cce5ff",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#d9dadb",
+                    "tertiary-fixed": "#f7e478",
+                    "secondary-container": "#dbe4e3",
+                    "primary-container": "#004165",
+                    "on-surface": "#191c1d",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-container": "#edeeef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "lg": "48px",
+                    "xs": "4px",
+                    "md": "24px",
+                    "margin-desktop": "64px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "xl": "80px",
+                    "margin-mobile": "16px",
+                    "gutter": "20px"
+            },
+            "fontFamily": {
+                    "headline-xl-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "caption": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-xl-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "30px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script>
+<style>
+  /* Custom soft shadow */
+  .card-shadow {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Smooth transitions */
+  .transition-all-200 {
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* Print Styles */
+  @media print {
+    body {
+      background: white !important;
+      color: #000000 !important;
+    }
+    main {
+      padding: 0 !important;
+      max-w: 100% !important;
+    }
+    header, footer, button, #addProjectBtn, .remove-project-btn, #draftAlert, #historySection, .action-buttons, .opacity-30, .print\:hidden {
+      display: none !important;
+    }
+    input, select, textarea {
+      border: none !important;
+      background: transparent !important;
+      padding: 0 !important;
+      height: auto !important;
+      box-shadow: none !important;
+      appearance: none !important;
+      pointer-events: none !important;
+      font-weight: 600 !important;
+      color: #000000 !important;
+    }
+    .card-shadow {
+      box-shadow: none !important;
+      border: 1px solid #c1c7cf !important;
+      background: white !important;
+      page-break-inside: avoid !important;
+    }
+    #printApprovalSection {
+      display: block !important;
+    }
+    /* Style level radio buttons to highlight selected in print */
+    input[type="radio"] {
+      display: none !important;
+    }
+    input[type="radio"]:not(:checked) + span {
+      display: none !important;
+    }
+    input[type="radio"]:checked + span {
+      font-size: 14pt !important;
+      font-weight: bold !important;
+      border: 2px solid #002a44 !important;
+      padding: 2px 10px !important;
+      border-radius: 4px !important;
+      background: #002a44 !important;
+      color: white !important;
+      display: inline-block !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>
+<meta charset="utf-8">
+</head>
+<body class="bg-background text-on-surface font-body-md">
+
+<main class="max-w-[1200px] mx-auto px-margin-desktop py-lg min-h-screen pt-lg pb-xl">
+<!-- Header Section -->
+<div class="mb-lg print:hidden">
+  <h1 class="font-headline-xl text-headline-xl text-primary mb-xs">Path Level Completion Form</h1>
+  <p class="font-body-lg text-body-lg text-secondary max-w-2xl">
+    Submit your completed projects to Graeme (VPE) for Guiding Stars level approvals. Ensure all evaluations are complete before submitting.
+  </p>
+</div>
+
+<!-- Print-Only Header -->
+<div class="hidden print:block mb-lg text-center border-b-2 border-primary pb-md">
+  <h1 class="font-headline-xl text-[28px] text-primary font-bold uppercase tracking-wider">Pathways Level Completion Record</h1>
+  <p class="font-body-md text-secondary mt-xs">Official Submission Receipt • Guiding Stars Toastmasters Club</p>
+</div>
+
+<!-- Draft Alert Banner -->
+<div id="draftAlert" class="hidden mb-md p-sm bg-surface-container-high border-l-4 border-primary rounded-r-xl flex items-center justify-between transition-all duration-200 print:hidden">
+  <div class="flex items-center gap-sm">
+    <span class="material-symbols-outlined text-primary">restore</span>
+    <span id="draftAlertText" class="font-body-md text-body-md text-on-surface">Draft auto-restored.</span>
+  </div>
+  <div class="flex items-center gap-sm">
+    <button type="button" onclick="clearDraft()" class="px-sm h-[36px] bg-white border border-error text-error font-bold rounded-lg text-sm hover:bg-error-container transition-all-200">
+      Reset Form
+    </button>
+  </div>
+</div>
+
+<form id="levelForm" class="space-y-md">
+<!-- Member Details Card -->
+<section class="bg-surface-container-lowest p-md rounded-xl card-shadow border border-outline-variant">
+  <div class="flex items-center gap-xs mb-md border-l-4 border-[#FFD700] pl-sm">
+    <h2 class="font-headline-md text-headline-md text-primary">Member & Club Identification</h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+    <div class="space-y-xs">
+      <label class="font-label-md text-label-md text-on-surface-variant block">Full Member Name</label>
+      <input id="memberName" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" placeholder="e.g. Jane Doe" type="text" required>
+    </div>
+    <div class="space-y-xs">
+      <label class="font-label-md text-label-md text-on-surface-variant block">Nominated Club for Award Credit</label>
+      <input id="nominatedClub" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="Guiding Stars" placeholder="e.g. Guiding Stars" type="text" required>
+    </div>
+    <div class="space-y-xs">
+      <label class="font-label-md text-label-md text-on-surface-variant block">Path Selected</label>
+      <select id="pathSelected" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200">
+        <option>Dynamic Leadership</option>
+        <option>Effective Coaching</option>
+        <option>Innovative Planning</option>
+        <option>Leadership Development</option>
+        <option>Motivational Strategies</option>
+        <option>Persuasive Influence</option>
+        <option>Presentation Mastery</option>
+        <option>Strategic Relationships</option>
+        <option>Team Collaboration</option>
+        <option>Visionary Communication</option>
+      </select>
+    </div>
+    <div class="space-y-xs">
+      <label class="font-label-md text-label-md text-on-surface-variant block">Level Number</label>
+      <div class="flex items-center gap-sm h-[48px]">
+        <label class="flex items-center gap-xs cursor-pointer">
+          <input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="level" type="radio" value="1" checked>
+          <span class="font-body-md text-body-md">1</span>
+        </label>
+        <label class="flex items-center gap-xs cursor-pointer">
+          <input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="level" type="radio" value="2">
+          <span class="font-body-md text-body-md">2</span>
+        </label>
+        <label class="flex items-center gap-xs cursor-pointer">
+          <input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="level" type="radio" value="3">
+          <span class="font-body-md text-body-md">3</span>
+        </label>
+        <label class="flex items-center gap-xs cursor-pointer">
+          <input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="level" type="radio" value="4">
+          <span class="font-body-md text-body-md">4</span>
+        </label>
+        <label class="flex items-center gap-xs cursor-pointer">
+          <input class="w-5 h-5 text-primary focus:ring-primary border-outline-variant" name="level" type="radio" value="5">
+          <span class="font-body-md text-body-md">5</span>
+        </label>
+      </div>
+    </div>
+    <div class="space-y-xs md:col-span-2">
+      <label class="font-label-md text-label-md text-on-surface-variant block">VP Education Email Recipient</label>
+      <input id="vpeEmail" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="vpe@guidingstars.org" placeholder="e.g. vpe@guidingstars.org" type="email" required>
+    </div>
+  </div>
+</section>
+
+<!-- Projects Evidence Trail Container -->
+<div id="projectsContainer" class="grid grid-cols-1 gap-md">
+  <!-- Dynamic Project Cards Rendered Here -->
+</div>
+
+<!-- Add Project Button -->
+<button type="button" id="addProjectBtn" onclick="addProject()" class="w-full py-md border-2 border-dashed border-primary text-primary hover:bg-primary hover:text-white font-bold rounded-xl transition-all-200 flex items-center justify-center gap-base my-md print:hidden">
+  <span class="material-symbols-outlined">add</span>
+  Add Another Project Speeches / Electives
+</button>
+
+<!-- Print Approval Signature Section -->
+<div id="printApprovalSection" class="hidden mt-lg border-t-2 border-primary pt-md">
+  <h3 class="font-headline-md text-headline-md text-primary mb-md">VPE Verification Trail</h3>
+  <p class="font-body-md text-on-surface-variant mb-lg">
+    This record serves as an evidence trail of speech completions for the Toastmasters Pathways programme.
+  </p>
+  <div class="grid grid-cols-2 gap-lg">
+    <div>
+      <p class="font-label-md text-on-surface-variant">VP Education Signature</p>
+      <div class="border-b border-on-surface h-[40px] mt-sm"></div>
+    </div>
+    <div>
+      <p class="font-label-md text-on-surface-variant">Approval Date</p>
+      <div class="border-b border-on-surface h-[40px] mt-sm"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="flex justify-end items-center gap-md pt-lg flex-col sm:flex-row print:hidden action-buttons">
+  <button type="button" onclick="saveDraftManual()" class="px-lg h-[52px] bg-white border border-primary text-primary font-bold rounded-lg hover:bg-primary-container transition-all-200 active:scale-[0.98] w-full sm:w-auto">
+    Save as Draft
+  </button>
+  <button type="submit" class="px-xl h-[52px] bg-primary text-on-primary font-bold rounded-lg shadow-md hover:opacity-90 transition-all-200 active:scale-[0.98] flex items-center gap-base w-full sm:w-auto">
+    <span>Submit to VPE</span>
+    <span class="material-symbols-outlined">send</span>
+  </button>
+</div>
+</form>
+
+<!-- Submission History Section -->
+<section id="historySection" class="bg-surface-container-low p-md rounded-xl border border-outline-variant mt-xl print:hidden hidden">
+  <div class="flex items-center gap-xs mb-md border-l-4 border-secondary pl-sm cursor-pointer" onclick="toggleHistory()">
+    <h2 class="font-headline-md text-headline-md text-secondary flex items-center gap-sm w-full justify-between">
+      <span>Your Submission History (Local Browser)</span>
+      <span id="historyToggleIcon" class="material-symbols-outlined transition-transform duration-200">expand_more</span>
+    </h2>
+  </div>
+  <div id="historyContent" class="space-y-sm hidden">
+    <!-- Dynamic items go here -->
+  </div>
+</section>
+
+<!-- Decorative Asset -->
+<div class="mt-xl opacity-30 flex justify-center print:hidden">
+  <div class="w-full h-px bg-gradient-to-r from-transparent via-outline to-transparent"></div>
+</div>
+</main>
+
+<!-- Submission Success Modal -->
+<div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-md hidden print:hidden">
+  <div class="bg-surface-container-lowest max-w-lg w-full rounded-xl card-shadow border border-outline-variant p-md space-y-md">
+    <div class="flex items-center gap-sm text-primary mb-xs">
+      <span class="material-symbols-outlined text-[40px] text-primary">check_circle</span>
+      <div>
+        <h3 class="font-headline-md text-headline-md text-primary">Submission Recorded!</h3>
+        <p class="font-caption text-caption text-secondary">Saved locally to your submission history</p>
+      </div>
+    </div>
+    
+    <p class="font-body-md text-body-md text-on-surface">
+      Your Pathways level details have been recorded. To complete your submission and notify Graeme (VPE), please complete the actions below:
+    </p>
+
+    <div class="space-y-sm pt-sm">
+      <!-- Action 1: Open Email Client -->
+      <a id="vpeMailtoBtn" href="#" class="w-full flex items-center justify-between p-sm border border-outline-variant rounded-lg hover:bg-primary-container hover:border-primary-container group transition-all duration-200">
+        <div class="flex items-center gap-sm">
+          <span class="material-symbols-outlined text-primary group-hover:text-primary-fixed-dim">mail</span>
+          <div class="text-left">
+            <h4 class="font-label-md text-label-md text-primary group-hover:text-primary-fixed-dim">1. Send Email to VPE</h4>
+            <p class="font-caption text-caption text-secondary group-hover:text-white/85">Opens your mail app to send the formatted evidence trail</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-primary group-hover:text-primary-fixed-dim">arrow_forward</span>
+      </a>
+
+      <!-- Action 2: Save Receipt PDF -->
+      <button type="button" onclick="printFromModal()" class="w-full flex items-center justify-between p-sm border border-outline-variant rounded-lg hover:bg-secondary-container transition-all duration-200">
+        <div class="flex items-center gap-sm">
+          <span class="material-symbols-outlined text-secondary">picture_as_pdf</span>
+          <div class="text-left">
+            <h4 class="font-label-md text-label-md text-on-secondary-container">2. Save/Print PDF Receipt</h4>
+            <p class="font-caption text-caption text-secondary">Save a copy of this level record for your own assurance</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-secondary">print</span>
+      </button>
+
+      <!-- Action 3: Copy plain text to clipboard -->
+      <button type="button" id="copyClipboardBtn" class="w-full flex items-center justify-between p-sm border border-outline-variant rounded-lg hover:bg-surface-container-high transition-all duration-200">
+        <div class="flex items-center gap-sm">
+          <span class="material-symbols-outlined text-on-surface-variant">content_copy</span>
+          <div class="text-left">
+            <h4 class="font-label-md text-label-md text-on-surface">3. Copy details to clipboard</h4>
+            <p class="font-caption text-caption text-secondary">If mail client doesn't open, copy and paste manually</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-on-surface-variant">file_copy</span>
+      </button>
+    </div>
+
+    <div class="flex justify-end pt-md border-t border-outline-variant">
+      <button type="button" id="closeModalBtn" class="px-lg h-[44px] bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 transition-all-200">
+        Close & Done
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// State management
+let projects = [];
+
+// DOM Elements
+const form = document.getElementById('levelForm');
+const projectsContainer = document.getElementById('projectsContainer');
+const addProjectBtn = document.getElementById('addProjectBtn');
+const successModal = document.getElementById('successModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const copyClipboardBtn = document.getElementById('copyClipboardBtn');
+const vpeMailtoBtn = document.getElementById('vpeMailtoBtn');
+const historySection = document.getElementById('historySection');
+const historyContent = document.getElementById('historyContent');
+const historyToggleIcon = document.getElementById('historyToggleIcon');
+const draftAlert = document.getElementById('draftAlert');
+const draftAlertText = document.getElementById('draftAlertText');
+
+// Initialise form & events
+document.addEventListener('DOMContentLoaded', () => {
+    initForm();
+    renderHistory();
+    
+    // Auto-save on form input (with 1 second debounce)
+    form.addEventListener('input', debounce(saveDraft, 1000));
+    
+    // Bind dynamic micro-interactions for styling on focus/blur
+    bindInputStyling();
+});
+
+function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+function createProjectState(name = '', speechTitle = '', date = '', club = 'Guiding Stars', evaluator = '') {
+    return { name, speechTitle, date, club, evaluator };
+}
+
+function initForm() {
+    const draftData = localStorage.getItem('pathways_form_draft');
+    if (draftData) {
+        try {
+            const data = JSON.parse(draftData);
+            document.getElementById('memberName').value = data.memberName || '';
+            document.getElementById('nominatedClub').value = data.nominatedClub || 'Guiding Stars';
+            document.getElementById('vpeEmail').value = data.vpeEmail || 'vpe@guidingstars.org';
+            document.getElementById('pathSelected').value = data.pathSelected || 'Dynamic Leadership';
+            
+            if (data.levelSelected) {
+                const radio = document.querySelector(`input[name="level"][value="${data.levelSelected}"]`);
+                if (radio) radio.checked = true;
+            }
+            
+            if (data.projects && data.projects.length > 0) {
+                projects = data.projects;
+            } else {
+                projects = getDefaultProjects();
+            }
+            showDraftAlert(data.updatedAt);
+        } catch (e) {
+            console.error("Error loading draft", e);
+            projects = getDefaultProjects();
+        }
+    } else {
+        projects = getDefaultProjects();
+    }
+    renderProjects();
+}
+
+function getDefaultProjects() {
+    return [
+        createProjectState('Ice Breaker', '', '', 'Guiding Stars', ''),
+        createProjectState('Writing a Speech with Feedback (Speech)', '', '', 'Guiding Stars', ''),
+        createProjectState('Writing a Speech with Feedback (Evaluation)', '', '', 'Guiding Stars', '')
+    ];
+}
+
+function showDraftAlert(updatedAt) {
+    if (!draftAlert) return;
+    const dateStr = new Date(updatedAt).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    draftAlertText.textContent = `Unsaved draft auto-restored (saved at ${dateStr}).`;
+    draftAlert.classList.remove('hidden');
+}
+
+function clearDraft() {
+    localStorage.removeItem('pathways_form_draft');
+    if (draftAlert) draftAlert.classList.add('hidden');
+    form.reset();
+    document.getElementById('nominatedClub').value = 'Guiding Stars';
+    document.getElementById('vpeEmail').value = 'vpe@guidingstars.org';
+    projects = getDefaultProjects();
+    renderProjects();
+}
+
+function renderProjects() {
+    projectsContainer.innerHTML = '';
+    
+    projects.forEach((proj, idx) => {
+        const isFirst = idx === 0;
+        const countStr = String(idx + 1).padStart(2, '0');
+        
+        const card = document.createElement('div');
+        card.className = 'project-card bg-surface-container-lowest p-md rounded-xl card-shadow border border-outline-variant relative transition-all duration-200';
+        card.dataset.index = idx;
+        
+        card.innerHTML = `
+            <div class="flex justify-between items-center mb-md border-l-4 border-primary pl-sm">
+                <div class="flex items-center gap-base">
+                    <span class="project-badge bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">${countStr}</span>
+                    <h3 class="font-headline-md text-headline-md text-primary">${isFirst ? 'Primary Project Details' : 'Additional Project Details'}</h3>
+                </div>
+                <div class="flex items-center gap-md">
+                    ${isFirst ? '<span class="text-primary font-bold text-label-md uppercase tracking-wider print:hidden">Required</span>' : ''}
+                    ${!isFirst ? `
+                        <button type="button" onclick="removeProject(${idx})" class="remove-project-btn text-error hover:text-red-700 font-label-md flex items-center gap-xs print:hidden transition-all duration-200">
+                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                            Delete
+                        </button>
+                    ` : ''}
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-lg gap-y-md">
+                <div class="space-y-xs">
+                    <label class="font-label-md text-label-md text-on-surface-variant block">Project Name</label>
+                    <input type="text" required class="project-name w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" placeholder="e.g. Evaluation and Feedback" value="${escapeHtml(proj.name)}">
+                </div>
+                <div class="space-y-xs">
+                    <label class="font-label-md text-label-md text-on-surface-variant block">Speech Title</label>
+                    <input type="text" required class="project-speech-title w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" placeholder="e.g. My Journey into Tech" value="${escapeHtml(proj.speechTitle)}">
+                </div>
+                <div class="space-y-xs">
+                    <label class="font-label-md text-label-md text-on-surface-variant block">Date Given</label>
+                    <input type="date" required class="project-date w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="${proj.date}">
+                </div>
+                <div class="grid grid-cols-2 gap-md">
+                    <div class="space-y-xs">
+                        <label class="font-label-md text-label-md text-on-surface-variant block">Club</label>
+                        <input type="text" required class="project-club w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="${escapeHtml(proj.club)}">
+                    </div>
+                    <div class="space-y-xs">
+                        <label class="font-label-md text-label-md text-on-surface-variant block">Evaluator Name</label>
+                        <input type="text" required class="project-evaluator w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" placeholder="Evaluator Name" value="${escapeHtml(proj.evaluator)}">
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Listen for internal input changes to keep state synchronized
+        card.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                updateProjectStateFromDOM();
+                saveDraft();
+            });
+        });
+        
+        projectsContainer.appendChild(card);
+    });
+    
+    bindInputStyling();
+}
+
+function updateProjectStateFromDOM() {
+    const cards = projectsContainer.querySelectorAll('.project-card');
+    projects = Array.from(cards).map(card => {
+        return {
+            name: card.querySelector('.project-name').value,
+            speechTitle: card.querySelector('.project-speech-title').value,
+            date: card.querySelector('.project-date').value,
+            club: card.querySelector('.project-club').value,
+            evaluator: card.querySelector('.project-evaluator').value
+        };
+    });
+}
+
+// Ensure the level option radios also trigger autosave
+document.querySelectorAll('input[name="level"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        saveDraft();
+    });
+});
+document.getElementById('pathSelected').addEventListener('change', () => {
+    saveDraft();
+});
+
+function addProject() {
+    updateProjectStateFromDOM();
+    projects.push(createProjectState('', '', '', 'Guiding Stars', ''));
+    renderProjects();
+    saveDraft();
+}
+
+function removeProject(index) {
+    updateProjectStateFromDOM();
+    projects.splice(index, 1);
+    renderProjects();
+    saveDraft();
+}
+
+function saveDraft() {
+    updateProjectStateFromDOM();
+    const data = {
+        memberName: document.getElementById('memberName').value,
+        nominatedClub: document.getElementById('nominatedClub').value,
+        vpeEmail: document.getElementById('vpeEmail').value,
+        pathSelected: document.getElementById('pathSelected').value,
+        levelSelected: document.querySelector('input[name="level"]:checked')?.value || '1',
+        projects: projects,
+        updatedAt: new Date().toISOString()
+    };
+    localStorage.setItem('pathways_form_draft', JSON.stringify(data));
+}
+
+function saveDraftManual() {
+    saveDraft();
+    alert("Draft saved successfully to your browser's local storage!");
+}
+
+// Form Submission
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    updateProjectStateFromDOM();
+    
+    const levelSelected = document.querySelector('input[name="level"]:checked')?.value;
+    const memberName = document.getElementById('memberName').value;
+    const nominatedClub = document.getElementById('nominatedClub').value;
+    const vpeEmail = document.getElementById('vpeEmail').value;
+    const pathSelected = document.getElementById('pathSelected').value;
+    
+    const record = {
+        id: 'sub_' + Date.now(),
+        memberName,
+        nominatedClub,
+        vpeEmail,
+        pathSelected,
+        levelSelected,
+        projects,
+        submittedAt: new Date().toISOString()
+    };
+    
+    // Save to Local Submission History
+    let history = [];
+    const historyData = localStorage.getItem('pathways_submissions_history');
+    if (historyData) {
+        try { history = JSON.parse(historyData); } catch (e) {}
+    }
+    history.unshift(record);
+    localStorage.setItem('pathways_submissions_history', JSON.stringify(history));
+    
+    // Clean up draft
+    localStorage.removeItem('pathways_form_draft');
+    if (draftAlert) draftAlert.classList.add('hidden');
+    
+    renderHistory();
+    showSuccessModal(record);
+});
+
+function showSuccessModal(record) {
+    successModal.classList.remove('hidden');
+    
+    // Prepare dynamic VPE mail details
+    const emailSubject = `[Pathways Level Completion] ${record.memberName} - ${record.pathSelected} Level ${record.levelSelected}`;
+    
+    let projectsText = '';
+    record.projects.forEach((p, index) => {
+        projectsText += `Project ${String(index + 1).padStart(2, '0')}:
+- Project Name: ${p.name || '(N/A)'}
+- Speech Title: ${p.speechTitle || '(N/A)'}
+- Date Given: ${p.date || '(N/A)'}
+- Club: ${p.club || '(N/A)'}
+- Evaluator: ${p.evaluator || '(N/A)'}
+
+`;
+    });
+    
+    const emailBody = `Hi Graeme / VPE,
+
+Please find below my completed Toastmasters Pathways level details for my level approval in Guiding Stars.
+
+MEMBER IDENTIFICATION:
+------------------------------------------
+Member Name: ${record.memberName}
+Path Selected: ${record.pathSelected}
+Level Completed: Level ${record.levelSelected}
+Nominated Club for Award Credit: ${record.nominatedClub}
+Submission Date: ${new Date(record.submittedAt).toLocaleDateString('en-GB')}
+
+COMPLETED PROJECTS EVIDENCE TRAIL:
+------------------------------------------
+${projectsText}
+This evidence trail has been generated and filed via the Guiding Stars Level Completion Form.
+
+Best regards,
+${record.memberName}`;
+
+    vpeMailtoBtn.href = `mailto:${record.vpeEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    
+    // Clipboard Action
+    copyClipboardBtn.onclick = () => {
+        navigator.clipboard.writeText(emailBody)
+            .then(() => {
+                alert("Submission details copied to clipboard! You can now paste this directly into an email client or messaging app.");
+            })
+            .catch(err => {
+                console.error("Could not copy text", err);
+            });
+    };
+}
+
+function printFromModal() {
+    successModal.classList.add('hidden');
+    window.print();
+}
+
+closeModalBtn.onclick = () => {
+    successModal.classList.add('hidden');
+    clearDraft();
+};
+
+// History Section Management
+function renderHistory() {
+    const historyData = localStorage.getItem('pathways_submissions_history');
+    let history = [];
+    if (historyData) {
+        try { history = JSON.parse(historyData); } catch (e) {}
+    }
+    
+    if (history.length === 0) {
+        historySection.classList.add('hidden');
+        return;
+    }
+    
+    historySection.classList.remove('hidden');
+    historyContent.innerHTML = '';
+    
+    history.forEach(item => {
+        const itemDate = new Date(item.submittedAt).toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        const div = document.createElement('div');
+        div.className = 'bg-surface-container-lowest p-sm rounded-lg border border-outline-variant flex flex-col md:flex-row md:items-center justify-between gap-sm transition-all duration-200 hover:border-primary';
+        div.innerHTML = `
+            <div>
+                <h4 class="font-label-md text-label-md text-primary">${escapeHtml(item.memberName)} — ${escapeHtml(item.pathSelected)} (Level ${item.levelSelected})</h4>
+                <p class="font-caption text-caption text-secondary">Club Credit: <strong>${escapeHtml(item.nominatedClub)}</strong> • Submitted: ${itemDate}</p>
+            </div>
+            <div class="flex items-center gap-sm flex-wrap">
+                <button type="button" onclick="viewSubmission('${item.id}')" class="px-sm py-xs border border-primary text-primary hover:bg-primary hover:text-white font-bold rounded-lg text-xs transition-all duration-200 flex items-center gap-xs">
+                    <span class="material-symbols-outlined text-[16px]">visibility</span> View/Edit
+                </button>
+                <button type="button" onclick="printSubmissionDirectly('${item.id}')" class="px-sm py-xs border border-secondary text-secondary hover:bg-secondary hover:text-white font-bold rounded-lg text-xs transition-all duration-200 flex items-center gap-xs">
+                    <span class="material-symbols-outlined text-[16px]">print</span> Print PDF
+                </button>
+                <button type="button" onclick="deleteHistory('${item.id}')" class="p-xs text-error hover:text-red-700 transition-all duration-200" title="Delete record">
+                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                </button>
+            </div>
+        `;
+        historyContent.appendChild(div);
+    });
+}
+
+function viewSubmission(id) {
+    const historyData = localStorage.getItem('pathways_submissions_history');
+    if (!historyData) return;
+    try {
+        const history = JSON.parse(historyData);
+        const item = history.find(x => x.id === id);
+        if (!item) return;
+        
+        document.getElementById('memberName').value = item.memberName;
+        document.getElementById('nominatedClub').value = item.nominatedClub;
+        document.getElementById('vpeEmail').value = item.vpeEmail;
+        document.getElementById('pathSelected').value = item.pathSelected;
+        
+        const radio = document.querySelector(`input[name="level"][value="${item.levelSelected}"]`);
+        if (radio) radio.checked = true;
+        
+        projects = item.projects;
+        renderProjects();
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+function printSubmissionDirectly(id) {
+    viewSubmission(id);
+    setTimeout(() => {
+        window.print();
+    }, 400);
+}
+
+function deleteHistory(id) {
+    if (!confirm("Are you sure you want to delete this submission record from your local browser history? This action cannot be undone.")) {
+        return;
+    }
+    const historyData = localStorage.getItem('pathways_submissions_history');
+    if (!historyData) return;
+    try {
+        let history = JSON.parse(historyData);
+        history = history.filter(x => x.id !== id);
+        localStorage.setItem('pathways_submissions_history', JSON.stringify(history));
+        renderHistory();
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+let historyOpen = false;
+function toggleHistory() {
+    historyOpen = !historyOpen;
+    if (historyOpen) {
+        historyContent.classList.remove('hidden');
+        historyToggleIcon.classList.add('rotate-180');
+    } else {
+        historyContent.classList.add('hidden');
+        historyToggleIcon.classList.remove('rotate-180');
+    }
+}
+
+function bindInputStyling() {
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        // Remove prior event listeners to prevent duplication
+        const nextInput = input.cloneNode(true);
+        input.parentNode.replaceChild(nextInput, input);
+        
+        nextInput.addEventListener('blur', () => {
+            if (nextInput.value) {
+                nextInput.classList.add('border-primary');
+                nextInput.classList.remove('border-outline-variant');
+            } else {
+                nextInput.classList.remove('border-primary');
+                nextInput.classList.add('border-outline-variant');
+            }
+        });
+        
+        nextInput.addEventListener('focus', () => {
+            nextInput.classList.remove('border-outline-variant');
+            nextInput.classList.add('border-primary');
+        });
+    });
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+</script>
+</body>
+</html>

@@ -258,7 +258,7 @@ try{
     </div>
     <div class="space-y-xs md:col-span-2">
       <label class="font-label-md text-label-md text-on-surface-variant block">VP Education Email Recipient</label>
-      <input id="vpeEmail" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="toastmaster.graeme@gmail.com" placeholder="e.g. vpe@guidingstars.org" type="email" required>
+      <input id="vpeEmail" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="toastmaster.graeme@gmail.com" placeholder="e.g. toastmaster.graeme@gmail.com" type="email" required>
     </div>
   </div>
 </section>
@@ -433,7 +433,7 @@ function initForm() {
             const data = JSON.parse(draftData);
             document.getElementById('memberName').value = data.memberName || '';
             document.getElementById('nominatedClub').value = data.nominatedClub || 'Guiding Stars';
-            document.getElementById('vpeEmail').value = data.vpeEmail || 'vpe@guidingstars.org';
+            document.getElementById('vpeEmail').value = data.vpeEmail || 'toastmaster.graeme@gmail.com';
             document.getElementById('pathSelected').value = data.pathSelected || 'Dynamic Leadership';
             
             if (data.levelSelected) {
@@ -477,7 +477,7 @@ function clearDraft() {
     if (draftAlert) draftAlert.classList.add('hidden');
     form.reset();
     document.getElementById('nominatedClub').value = 'Guiding Stars';
-    document.getElementById('vpeEmail').value = 'vpe@guidingstars.org';
+    document.getElementById('vpeEmail').value = 'toastmaster.graeme@gmail.com';
     projects = getDefaultProjects();
     renderProjects();
 }

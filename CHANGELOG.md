@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-07-23
+
+### Fixed
+- Resolved a critical rendering issue where a non-standard class used in the `@apply` statement broke and halted the Tailwind CSS Play CDN compilation process, causing the form to render as plain HTML.
+
 ## [1.1.0] - 2026-07-22
 
 ### Added
@@ -37,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - High-fidelity print-to-PDF stylesheet stripping interactive controls and adding physical signature lines.
 - Comprehensive corporate design system specifications (`DESIGN.md`).
 
-[Unreleased]: https://github.com/kibitzer/level-details-form/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/kibitzer/level-details-form/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/kibitzer/level-details-form/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/kibitzer/level-details-form/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/kibitzer/level-details-form/releases/tag/v1.0.0

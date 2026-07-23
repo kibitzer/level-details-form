@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-22
+
 ### Added
 - Created a robust browser-based CDN unit test suite (`tests.html`) powered by Mocha and Chai, offering zero-dependency test execution in any web browser.
 
@@ -35,5 +37,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - High-fidelity print-to-PDF stylesheet stripping interactive controls and adding physical signature lines.
 - Comprehensive corporate design system specifications (`DESIGN.md`).
 
-[Unreleased]: https://github.com/kibitzer/level-details-form/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/kibitzer/level-details-form/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/kibitzer/level-details-form/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/kibitzer/level-details-form/releases/tag/v1.0.0

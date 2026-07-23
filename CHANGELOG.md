@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Updated the VP Education recipient email address and corresponding form defaults to `toastmaster.graeme@gmail.com`.
+- Extracted the repetitive inline input styles into a central `.form-input` Tailwind utility class via `@apply`.
+- Abstracted redundant local storage retrieval and parsing logic into a reusable `getHistory()` helper.
+
+### Fixed
+- Resolved a critical bug where dynamic project input fields would lose auto-save event handlers when `bindInputStyling()` replaced the input nodes.
+
+### Removed
+- Deleted the redundant, bug-inducing `bindInputStyling()` function.
+- Eliminated redundant `updateProjectStateFromDOM()` calls on dynamic input changes, optimizing performance.
 
 ## [1.0.0] - 2026-07-22
 

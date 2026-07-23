@@ -104,6 +104,13 @@ try{
         },
       }
     }catch(_e){}</script>
+<style type="text/tailwindcss">
+  @layer utilities {
+    .form-input {
+      @apply w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200;
+    }
+  }
+</style>
 <style>
   /* Custom soft shadow */
   .card-shadow {
@@ -210,15 +217,15 @@ try{
   <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
     <div class="space-y-xs">
       <label class="font-label-md text-label-md text-on-surface-variant block">Full Member Name</label>
-      <input id="memberName" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" placeholder="e.g. Jane Doe" type="text" required>
+      <input id="memberName" class="form-input" placeholder="e.g. Jane Doe" type="text" required>
     </div>
     <div class="space-y-xs">
       <label class="font-label-md text-label-md text-on-surface-variant block">Nominated Club for Award Credit</label>
-      <input id="nominatedClub" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="Guiding Stars" placeholder="e.g. Guiding Stars" type="text" required>
+      <input id="nominatedClub" class="form-input" value="Guiding Stars" placeholder="e.g. Guiding Stars" type="text" required>
     </div>
     <div class="space-y-xs">
       <label class="font-label-md text-label-md text-on-surface-variant block">Path Selected</label>
-      <select id="pathSelected" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200">
+      <select id="pathSelected" class="form-input">
         <option>Dynamic Leadership</option>
         <option>Effective Coaching</option>
         <option>Innovative Planning</option>
@@ -258,7 +265,7 @@ try{
     </div>
     <div class="space-y-xs md:col-span-2">
       <label class="font-label-md text-label-md text-on-surface-variant block">VP Education Email Recipient</label>
-      <input id="vpeEmail" class="w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="toastmaster.graeme@gmail.com" placeholder="e.g. toastmaster.graeme@gmail.com" type="email" required>
+      <input id="vpeEmail" class="form-input" value="toastmaster.graeme@gmail.com" placeholder="e.g. toastmaster.graeme@gmail.com" type="email" required>
     </div>
   </div>
 </section>
@@ -409,9 +416,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Auto-save on form input (with 1 second debounce)
     form.addEventListener('input', debounce(saveDraft, 1000));
-    
-    // Bind dynamic micro-interactions for styling on focus/blur
-    bindInputStyling();
 });
 
 function debounce(func, delay) {
@@ -512,24 +516,24 @@ function renderProjects() {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-lg gap-y-md">
                 <div class="space-y-xs">
                     <label class="font-label-md text-label-md text-on-surface-variant block">Project Name</label>
-                    <input type="text" required class="project-name w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" placeholder="e.g. Evaluation and Feedback" value="${escapeHtml(proj.name)}">
+                    <input type="text" required class="project-name form-input" placeholder="e.g. Evaluation and Feedback" value="${escapeHtml(proj.name)}">
                 </div>
                 <div class="space-y-xs">
                     <label class="font-label-md text-label-md text-on-surface-variant block">Speech Title</label>
-                    <input type="text" required class="project-speech-title w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" placeholder="e.g. My Journey into Tech" value="${escapeHtml(proj.speechTitle)}">
+                    <input type="text" required class="project-speech-title form-input" placeholder="e.g. My Journey into Tech" value="${escapeHtml(proj.speechTitle)}">
                 </div>
                 <div class="space-y-xs">
                     <label class="font-label-md text-label-md text-on-surface-variant block">Date Given</label>
-                    <input type="date" required class="project-date w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="${proj.date}">
+                    <input type="date" required class="project-date form-input" value="${proj.date}">
                 </div>
                 <div class="grid grid-cols-2 gap-md">
                     <div class="space-y-xs">
                         <label class="font-label-md text-label-md text-on-surface-variant block">Club</label>
-                        <input type="text" required class="project-club w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" value="${escapeHtml(proj.club)}">
+                        <input type="text" required class="project-club form-input" value="${escapeHtml(proj.club)}">
                     </div>
                     <div class="space-y-xs">
                         <label class="font-label-md text-label-md text-on-surface-variant block">Evaluator Name</label>
-                        <input type="text" required class="project-evaluator w-full h-[48px] px-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all-200" placeholder="Evaluator Name" value="${escapeHtml(proj.evaluator)}">
+                        <input type="text" required class="project-evaluator form-input" placeholder="Evaluator Name" value="${escapeHtml(proj.evaluator)}">
                     </div>
                 </div>
             </div>
@@ -538,15 +542,12 @@ function renderProjects() {
         // Listen for internal input changes to keep state synchronized
         card.querySelectorAll('input').forEach(input => {
             input.addEventListener('input', () => {
-                updateProjectStateFromDOM();
                 saveDraft();
             });
         });
         
         projectsContainer.appendChild(card);
     });
-    
-    bindInputStyling();
 }
 
 function updateProjectStateFromDOM() {
@@ -628,11 +629,7 @@ form.addEventListener('submit', (e) => {
     };
     
     // Save to Local Submission History
-    let history = [];
-    const historyData = localStorage.getItem('pathways_submissions_history');
-    if (historyData) {
-        try { history = JSON.parse(historyData); } catch (e) {}
-    }
+    const history = getHistory();
     history.unshift(record);
     localStorage.setItem('pathways_submissions_history', JSON.stringify(history));
     
@@ -706,13 +703,21 @@ closeModalBtn.onclick = () => {
     clearDraft();
 };
 
+function getHistory() {
+    const historyData = localStorage.getItem('pathways_submissions_history');
+    if (historyData) {
+        try {
+            return JSON.parse(historyData) || [];
+        } catch (e) {
+            console.error("Error parsing submissions history", e);
+        }
+    }
+    return [];
+}
+
 // History Section Management
 function renderHistory() {
-    const historyData = localStorage.getItem('pathways_submissions_history');
-    let history = [];
-    if (historyData) {
-        try { history = JSON.parse(historyData); } catch (e) {}
-    }
+    const history = getHistory();
     
     if (history.length === 0) {
         historySection.classList.add('hidden');
@@ -755,28 +760,22 @@ function renderHistory() {
 }
 
 function viewSubmission(id) {
-    const historyData = localStorage.getItem('pathways_submissions_history');
-    if (!historyData) return;
-    try {
-        const history = JSON.parse(historyData);
-        const item = history.find(x => x.id === id);
-        if (!item) return;
-        
-        document.getElementById('memberName').value = item.memberName;
-        document.getElementById('nominatedClub').value = item.nominatedClub;
-        document.getElementById('vpeEmail').value = item.vpeEmail;
-        document.getElementById('pathSelected').value = item.pathSelected;
-        
-        const radio = document.querySelector(`input[name="level"][value="${item.levelSelected}"]`);
-        if (radio) radio.checked = true;
-        
-        projects = item.projects;
-        renderProjects();
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (e) {
-        console.error(e);
-    }
+    const history = getHistory();
+    const item = history.find(x => x.id === id);
+    if (!item) return;
+    
+    document.getElementById('memberName').value = item.memberName;
+    document.getElementById('nominatedClub').value = item.nominatedClub;
+    document.getElementById('vpeEmail').value = item.vpeEmail;
+    document.getElementById('pathSelected').value = item.pathSelected;
+    
+    const radio = document.querySelector(`input[name="level"][value="${item.levelSelected}"]`);
+    if (radio) radio.checked = true;
+    
+    projects = item.projects;
+    renderProjects();
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function printSubmissionDirectly(id) {
@@ -790,16 +789,9 @@ function deleteHistory(id) {
     if (!confirm("Are you sure you want to delete this submission record from your local browser history? This action cannot be undone.")) {
         return;
     }
-    const historyData = localStorage.getItem('pathways_submissions_history');
-    if (!historyData) return;
-    try {
-        let history = JSON.parse(historyData);
-        history = history.filter(x => x.id !== id);
-        localStorage.setItem('pathways_submissions_history', JSON.stringify(history));
-        renderHistory();
-    } catch (e) {
-        console.error(e);
-    }
+    const history = getHistory().filter(x => x.id !== id);
+    localStorage.setItem('pathways_submissions_history', JSON.stringify(history));
+    renderHistory();
 }
 
 let historyOpen = false;
@@ -812,30 +804,6 @@ function toggleHistory() {
         historyContent.classList.add('hidden');
         historyToggleIcon.classList.remove('rotate-180');
     }
-}
-
-function bindInputStyling() {
-    const inputs = document.querySelectorAll('input, select');
-    inputs.forEach(input => {
-        // Remove prior event listeners to prevent duplication
-        const nextInput = input.cloneNode(true);
-        input.parentNode.replaceChild(nextInput, input);
-        
-        nextInput.addEventListener('blur', () => {
-            if (nextInput.value) {
-                nextInput.classList.add('border-primary');
-                nextInput.classList.remove('border-outline-variant');
-            } else {
-                nextInput.classList.remove('border-primary');
-                nextInput.classList.add('border-outline-variant');
-            }
-        });
-        
-        nextInput.addEventListener('focus', () => {
-            nextInput.classList.remove('border-outline-variant');
-            nextInput.classList.add('border-primary');
-        });
-    });
 }
 
 function escapeHtml(str) {

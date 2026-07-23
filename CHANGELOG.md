@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Created a robust browser-based CDN unit test suite (`tests.html`) powered by Mocha and Chai, offering zero-dependency test execution in any web browser.
+
 ### Changed
+- Separated view structures from runtime logic by extracting inline JavaScript from `index.html` into a dedicated, modular `app.js` file.
 - Updated the VP Education recipient email address and corresponding form defaults to `toastmaster.graeme@gmail.com`.
 - Extracted the repetitive inline input styles into a central `.form-input` Tailwind utility class via `@apply`.
 - Abstracted redundant local storage retrieval and parsing logic into a reusable `getHistory()` helper.

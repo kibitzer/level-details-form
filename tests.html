@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pathways Level Completion Form - Test Suite</title>
+    <!-- Mocha CSS from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/10.2.0/mocha.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            margin: 24px;
+        }
+        #mocha {
+            background: white;
+            border: 1px solid #c1c7cf;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        #back-link {
+            display: inline-block;
+            margin-bottom: 16px;
+            color: #002a44;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        #back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a id="back-link" href="index.html">← Back to Level Completion Form</a>
+    
+    <!-- Test results container -->
+    <div id="mocha"></div>
+
+    <!-- Hidden DOM Sandbox for Testing JS Functions -->
+    <div id="test-sandbox" style="display: none;">
+        <form id="levelForm">
+            <input id="memberName" type="text">
+            <input id="nominatedClub" type="text">
+            <select id="pathSelected">
+                <option value="Dynamic Leadership">Dynamic Leadership</option>
+                <option value="Effective Coaching">Effective Coaching</option>
+            </select>
+            <input type="radio" name="level" value="1" checked>
+            <input type="radio" name="level" value="2">
+            <input type="radio" name="level" value="3">
+            <input type="radio" name="level" value="4">
+            <input type="radio" name="level" value="5">
+            <input id="vpeEmail" type="text">
+        </form>
+        <div id="projectsContainer"></div>
+        <button id="addProjectBtn"></button>
+        <div id="successModal" class="hidden"></div>
+        <button id="closeModalBtn"></button>
+        <button id="copyClipboardBtn"></button>
+        <a id="vpeMailtoBtn"></a>
+        <div id="historySection" class="hidden"></div>
+        <div id="historyContent"></div>
+        <span id="historyToggleIcon"></span>
+        <div id="draftAlert" class="hidden"></div>
+        <span id="draftAlertText"></span>
+    </div>
+
+    <!-- Mocha and Chai CDNs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/10.2.0/mocha.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.7/chai.min.js"></script>
+
+    <script>
+        // Setup Mocha BDD interface
+        mocha.setup('bdd');
+        const expect = chai.expect;
+    </script>
+
+    <!-- Load the Application Logic -->
+    <script src="app.js"></script>
+
+    <!-- Unit Tests Definition -->
+    <script>
+        /*
+        TEST_METADATA:
+        - Type: Feature Validation
+        - Date: 2026-07-22
+        - Description: Validates core functionality of the Pathways Level Completion Form including state, DOM updates, draft auto-save and history.
+        */
+
+        describe('Pathways Level Completion Form Unit Tests', () => {
+            
+            // Before each test, reset localStorage and setup clean sandboxed DOM state
+            beforeEach(() => {
+                localStorage.clear();
+                projects = [];
+                
+                // Clear any render outputs
+                const container = document.getElementById('projectsContainer');
+                if (container) container.innerHTML = '';
+                
+                // Reset standard fields
+                const nameInput = document.getElementById('memberName');
+                if (nameInput) nameInput.value = '';
+                
+                const clubInput = document.getElementById('nominatedClub');
+                if (clubInput) clubInput.value = 'Guiding Stars';
+                
+                const emailInput = document.getElementById('vpeEmail');
+                if (emailInput) emailInput.value = 'toastmaster.graeme@gmail.com';
+                
+                const pathSelect = document.getElementById('pathSelected');
+                if (pathSelect) pathSelect.value = 'Dynamic Leadership';
+                
+                const r1 = document.querySelector('input[name="level"][value="1"]');
+                if (r1) r1.checked = true;
+            });
+
+            afterEach(() => {
+                localStorage.clear();
+            });
+
+            describe('HTML Escaping & Security', () => {
+                it('should escape dangerous HTML characters to prevent XSS injection', () => {
+                    const dangerous = '<script>alert("hack")</\script> & "cool" \'string\'';
+                    const escaped = escapeHtml(dangerous);
+                    
+                    expect(escaped).to.not.contain('<script>');
+                    expect(escaped).to.contain('&lt;script&gt;');
+                    expect(escaped).to.contain('&amp;');
+                    expect(escaped).to.contain('&quot;');
+                    expect(escaped).to.contain('&#039;');
+                });
+
+                it('should return empty string if input is falsy', () => {
+                    expect(escapeHtml('')).to.equal('');
+                    expect(escapeHtml(null)).to.equal('');
+                    expect(escapeHtml(undefined)).to.equal('');
+                });
+            });
+
+            describe('Project State Creators', () => {
+                it('should create valid empty project states with defaults', () => {
+                    const state = createProjectState();
+                    expect(state).to.deep.equal({
+                        name: '',
+                        speechTitle: '',
+                        date: '',
+                        club: 'Guiding Stars',
+                        evaluator: ''
+                    });
+                });
+
+                it('should correctly apply custom arguments', () => {
+                    const state = createProjectState('Ice Breaker', 'My Speech', '2026-07-22', 'External Club', 'John Doe');
+                    expect(state).to.deep.equal({
+                        name: 'Ice Breaker',
+                        speechTitle: 'My Speech',
+                        date: '2026-07-22',
+                        club: 'External Club',
+                        evaluator: 'John Doe'
+                    });
+                });
+
+                it('should generate 3 standard projects by default', () => {
+                    const defaults = getDefaultProjects();
+                    expect(defaults).to.have.lengthOf(3);
+                    expect(defaults[0].name).to.equal('Ice Breaker');
+                    expect(defaults[1].name).to.equal('Writing a Speech with Feedback (Speech)');
+                    expect(defaults[2].name).to.equal('Writing a Speech with Feedback (Evaluation)');
+                });
+            });
+
+            describe('Dynamic Project Manager (DOM & State Sync)', () => {
+                it('should render standard cards in the DOM', () => {
+                    projects = getDefaultProjects();
+                    renderProjects();
+                    
+                    const cards = document.querySelectorAll('.project-card');
+                    expect(cards).to.have.lengthOf(3);
+                    
+                    // First badge should be numbered 01
+                    const firstBadge = cards[0].querySelector('.project-badge');
+                    expect(firstBadge.textContent).to.equal('01');
+                });
+
+                it('should successfully add a new project card to state and re-render the DOM', () => {
+                    projects = getDefaultProjects();
+                    renderProjects();
+                    
+                    addProject();
+                    
+                    expect(projects).to.have.lengthOf(4);
+                    const cards = document.querySelectorAll('.project-card');
+                    expect(cards).to.have.lengthOf(4);
+                    expect(projects[3].name).to.equal('');
+                    expect(projects[3].club).to.equal('Guiding Stars');
+                });
+
+                it('should successfully delete a project card and update numbering', () => {
+                    projects = getDefaultProjects();
+                    renderProjects();
+                    
+                    // Remove second project card (index 1)
+                    removeProject(1);
+                    
+                    expect(projects).to.have.lengthOf(2);
+                    const cards = document.querySelectorAll('.project-card');
+                    expect(cards).to.have.lengthOf(2);
+                    
+                    // Verify the names remaining
+                    expect(projects[0].name).to.equal('Ice Breaker');
+                    expect(projects[1].name).to.equal('Writing a Speech with Feedback (Evaluation)');
+                });
+            });
+
+            describe('Local Storage Draft Management (Auto-Save)', () => {
+                it('should successfully save draft state to localStorage', () => {
+                    projects = getDefaultProjects();
+                    
+                    // Modify sandbox values
+                    document.getElementById('memberName').value = 'Diana Prince';
+                    document.getElementById('nominatedClub').value = 'Themyscira Club';
+                    document.getElementById('vpeEmail').value = 'toastmaster.graeme@gmail.com';
+                    document.getElementById('pathSelected').value = 'Presentation Mastery';
+                    
+                    const r3 = document.querySelector('input[name="level"][value="3"]');
+                    if (r3) r3.checked = true;
+
+                    saveDraft();
+
+                    const storedData = localStorage.getItem('pathways_form_draft');
+                    expect(storedData).to.not.be.null;
+
+                    const data = JSON.parse(storedData);
+                    expect(data.memberName).to.equal('Diana Prince');
+                    expect(data.nominatedClub).to.equal('Themyscira Club');
+                    expect(data.pathSelected).to.equal('Presentation Mastery');
+                    expect(data.levelSelected).to.equal('3');
+                    expect(data.projects).to.have.lengthOf(3);
+                });
+
+                it('should correctly restore draft data back to inputs during initForm', () => {
+                    const testDraft = {
+                        memberName: 'Bruce Wayne',
+                        nominatedClub: 'Gotham Club',
+                        vpeEmail: 'toastmaster.graeme@gmail.com',
+                        pathSelected: 'Effective Coaching',
+                        levelSelected: '2',
+                        projects: [createProjectState('Custom Speech', 'My Dark Knight', '2026-07-22', 'Gotham Club', 'Alfred')],
+                        updatedAt: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('pathways_form_draft', JSON.stringify(testDraft));
+                    
+                    initForm();
+
+                    expect(document.getElementById('memberName').value).to.equal('Bruce Wayne');
+                    expect(document.getElementById('nominatedClub').value).to.equal('Gotham Club');
+                    expect(document.getElementById('vpeEmail').value).to.equal('toastmaster.graeme@gmail.com');
+                    expect(document.getElementById('pathSelected').value).to.equal('Effective Coaching');
+                    
+                    const r2 = document.querySelector('input[name="level"][value="2"]');
+                    expect(r2.checked).to.be.true;
+
+                    expect(projects).to.have.lengthOf(1);
+                    expect(projects[0].name).to.equal('Custom Speech');
+                });
+
+                it('should reset inputs back to defaults when clearing a draft', () => {
+                    document.getElementById('memberName').value = 'Some Name';
+                    saveDraft();
+                    
+                    clearDraft();
+                    
+                    expect(document.getElementById('memberName').value).to.equal('');
+                    expect(document.getElementById('nominatedClub').value).to.equal('Guiding Stars');
+                    expect(document.getElementById('vpeEmail').value).to.equal('toastmaster.graeme@gmail.com');
+                    expect(localStorage.getItem('pathways_form_draft')).to.be.null;
+                });
+            });
+
+            describe('Submission History Management', () => {
+                it('should return empty list if no history exists in localStorage', () => {
+                    const history = getHistory();
+                    expect(history).to.be.an('array').that.is.empty;
+                });
+
+                it('should return correct structured array when history exists', () => {
+                    const fakeRecord = { id: 'sub_123', memberName: 'Arthur Dent', submittedAt: new Date().toISOString() };
+                    localStorage.setItem('pathways_submissions_history', JSON.stringify([fakeRecord]));
+                    
+                    const history = getHistory();
+                    expect(history).to.have.lengthOf(1);
+                    expect(history[0].memberName).to.equal('Arthur Dent');
+                    expect(history[0].id).to.equal('sub_123');
+                });
+            });
+        });
+
+        // Run tests
+        mocha.run();
+    </script>
+</body>
+</html>

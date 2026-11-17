@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-11-17
+
+### Added
+- Feature assessment document (`docs/SCREENSHOT.md`) evaluating a possible screenshot evidence attachment capability for project cards.
+
+### Changed
+- Replaced Vice President Education (VPE) references with the Guiding Stars Executive Committee (ExCo) throughout: recipient field label, submit button, print verification trail, success modal text, and the generated email greeting.
+- Updated the default recipient email address from `toastmaster.graeme@gmail.com` to `guidingstarstoastmasters@gmail.com` in form defaults, local storage fallbacks, and test fixtures.
+- Renamed `GEMINI.md` to `AGENTS.md` to follow the agent context file convention.
+
 ## [1.2.0] - 2026-07-23
 
 ### Fixed
@@ -42,7 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - High-fidelity print-to-PDF stylesheet stripping interactive controls and adding physical signature lines.
 - Comprehensive corporate design system specifications (`DESIGN.md`).
 
-[Unreleased]: https://github.com/kibitzer/level-details-form/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/kibitzer/level-details-form/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/kibitzer/level-details-form/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/kibitzer/level-details-form/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/kibitzer/level-details-form/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/kibitzer/level-details-form/releases/tag/v1.0.0

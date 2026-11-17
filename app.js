@@ -50,7 +50,7 @@ function initForm() {
             
             if (memberNameEl) memberNameEl.value = data.memberName || '';
             if (nominatedClubEl) nominatedClubEl.value = data.nominatedClub || 'Guiding Stars';
-            if (vpeEmailEl) vpeEmailEl.value = data.vpeEmail || 'toastmaster.graeme@gmail.com';
+            if (vpeEmailEl) vpeEmailEl.value = data.vpeEmail || 'guidingstarstoastmasters@gmail.com';
             if (pathSelectedEl) pathSelectedEl.value = data.pathSelected || 'Dynamic Leadership';
             
             if (data.levelSelected) {
@@ -98,7 +98,7 @@ function clearDraft() {
     const vpeEmailEl = document.getElementById('vpeEmail');
     
     if (nominatedClubEl) nominatedClubEl.value = 'Guiding Stars';
-    if (vpeEmailEl) vpeEmailEl.value = 'toastmaster.graeme@gmail.com';
+    if (vpeEmailEl) vpeEmailEl.value = 'guidingstarstoastmasters@gmail.com';
     
     projects = getDefaultProjects();
     renderProjects();
@@ -221,7 +221,7 @@ function saveDraft() {
     const data = {
         memberName: memberNameEl ? memberNameEl.value : '',
         nominatedClub: nominatedClubEl ? nominatedClubEl.value : 'Guiding Stars',
-        vpeEmail: vpeEmailEl ? vpeEmailEl.value : 'toastmaster.graeme@gmail.com',
+        vpeEmail: vpeEmailEl ? vpeEmailEl.value : 'guidingstarstoastmasters@gmail.com',
         pathSelected: pathSelectedEl ? pathSelectedEl.value : 'Dynamic Leadership',
         levelSelected: levelSelectedRadio ? levelSelectedRadio.value : '1',
         projects: projects,
@@ -275,7 +275,7 @@ if (form) {
 function showSuccessModal(record) {
     if (successModal) successModal.classList.remove('hidden');
     
-    // Prepare dynamic VPE mail details
+    // Prepare dynamic ExCo mail details
     const emailSubject = `[Pathways Level Completion] ${record.memberName} - ${record.pathSelected} Level ${record.levelSelected}`;
     
     let projectsText = '';
@@ -290,7 +290,7 @@ function showSuccessModal(record) {
 `;
     });
     
-    const emailBody = `Hi Graeme / VPE,
+    const emailBody = `Hi Guiding Stars ExCo,
 
 Please find below my completed Toastmasters Pathways level details for my level approval in Guiding Stars.
 

@@ -106,7 +106,7 @@
                 if (clubInput) clubInput.value = 'Guiding Stars';
                 
                 const emailInput = document.getElementById('vpeEmail');
-                if (emailInput) emailInput.value = 'toastmaster.graeme@gmail.com';
+                if (emailInput) emailInput.value = 'guidingstarstoastmasters@gmail.com';
                 
                 const pathSelect = document.getElementById('pathSelected');
                 if (pathSelect) pathSelect.value = 'Dynamic Leadership';
@@ -220,7 +220,7 @@
                     // Modify sandbox values
                     document.getElementById('memberName').value = 'Diana Prince';
                     document.getElementById('nominatedClub').value = 'Themyscira Club';
-                    document.getElementById('vpeEmail').value = 'toastmaster.graeme@gmail.com';
+                    document.getElementById('vpeEmail').value = 'guidingstarstoastmasters@gmail.com';
                     document.getElementById('pathSelected').value = 'Presentation Mastery';
                     
                     const r3 = document.querySelector('input[name="level"][value="3"]');
@@ -243,7 +243,7 @@
                     const testDraft = {
                         memberName: 'Bruce Wayne',
                         nominatedClub: 'Gotham Club',
-                        vpeEmail: 'toastmaster.graeme@gmail.com',
+                        vpeEmail: 'guidingstarstoastmasters@gmail.com',
                         pathSelected: 'Effective Coaching',
                         levelSelected: '2',
                         projects: [createProjectState('Custom Speech', 'My Dark Knight', '2026-07-22', 'Gotham Club', 'Alfred')],
@@ -256,7 +256,7 @@
 
                     expect(document.getElementById('memberName').value).to.equal('Bruce Wayne');
                     expect(document.getElementById('nominatedClub').value).to.equal('Gotham Club');
-                    expect(document.getElementById('vpeEmail').value).to.equal('toastmaster.graeme@gmail.com');
+                    expect(document.getElementById('vpeEmail').value).to.equal('guidingstarstoastmasters@gmail.com');
                     expect(document.getElementById('pathSelected').value).to.equal('Effective Coaching');
                     
                     const r2 = document.querySelector('input[name="level"][value="2"]');
@@ -274,7 +274,7 @@
                     
                     expect(document.getElementById('memberName').value).to.equal('');
                     expect(document.getElementById('nominatedClub').value).to.equal('Guiding Stars');
-                    expect(document.getElementById('vpeEmail').value).to.equal('toastmaster.graeme@gmail.com');
+                    expect(document.getElementById('vpeEmail').value).to.equal('guidingstarstoastmasters@gmail.com');
                     expect(localStorage.getItem('pathways_form_draft')).to.be.null;
                 });
             });
